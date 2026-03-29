@@ -1,5 +1,7 @@
+const BASE_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000";
+
 export const getTutorialContent = async (tutorialId) => {
-  const url = `https://learncheck-dicoding-mock-666748076441.europe-west1.run.app/api/tutorials/${tutorialId}`;
+  const url = `${BASE_URL}/api/tutorials/${tutorialId}`;
 
   const res = await fetch(url);
   if (!res.ok) {
@@ -10,9 +12,6 @@ export const getTutorialContent = async (tutorialId) => {
   // struktur: { status, message, data: { content: "<html>" } }
   return data.data.content;
 };
-
-// --- 2) Generate Quiz (dipakai QuizPage) ---
-const BASE_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000";
 
 export const generateQuiz = async (tutorialId) => {
   // sesuai route backend: GET /api/quiz/:tutorialId
@@ -45,10 +44,10 @@ export const generateQuiz = async (tutorialId) => {
   return questions;
 };
 
-/** 🔹 NEW: ambil user preferences dari mock API */
+/** 🔹 User preferences dari backend lokal (pengganti Dicoding mock API) */
 export const getUserPreferences = async (userId) => {
   const res = await fetch(
-    `https://learncheck-dicoding-mock-666748076441.europe-west1.run.app/api/users/${userId}/preferences/`
+    `${BASE_URL}/api/users/${userId}/preferences`
   );
 
   if (!res.ok) {
@@ -56,6 +55,6 @@ export const getUserPreferences = async (userId) => {
   }
 
   const data = await res.json();
-  // sesuai JSON yang kamu kirim: data.data.preference
+  // format: { status, data: { preference: {...} } }
   return data.data.preference;
 };

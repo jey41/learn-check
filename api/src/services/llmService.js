@@ -1,4 +1,4 @@
-import { generateGemini } from "./geminiService.js";
+import { generateGroq } from "./groqService.js";
 
 export const requestLLM = async (prompt) => {
     const timeout = (ms) =>
@@ -10,15 +10,15 @@ export const requestLLM = async (prompt) => {
 
     try {
         const result = await Promise.race([
-            generateGemini(prompt),
-            timeout(10000)
+            generateGroq(prompt),
+            timeout(15000)
         ]);
 
-        console.log("Gemini time:", performance.now() - start, "ms");
+        console.log("Groq time:", performance.now() - start, "ms");
         return result;
 
     } catch (err) {
-        console.error("Gemini gagal:", err.message);
-        throw new Error("Request ke Gemini gagal atau timeout");
+        console.error("Groq gagal:", err.message);
+        throw new Error("Request ke Groq gagal atau timeout");
     }
 };
