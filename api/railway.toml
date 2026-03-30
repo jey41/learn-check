@@ -3,6 +3,7 @@ builder = "nixpacks"
 
 [build.nixpacks]
 providers = ["node"]
+nixPkgs = ["nodejs_20"]
 
 [deploy]
 startCommand = "node src/app.js"
